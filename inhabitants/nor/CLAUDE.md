@@ -9,7 +9,7 @@
 ## 記憶
 
 - 長期記憶: `memory/long-term.md`
-- 短期記憶: @`memory/short-term.md`
+- 短期記憶: @memory/short-term.md
 
 ---
 
