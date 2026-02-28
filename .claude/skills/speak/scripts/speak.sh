@@ -16,7 +16,7 @@ SURFACE="${2:-0}"
 
 # アプリサーバーの speak エンドポイントに送信
 BODY=$(jq -n --arg content "$MESSAGE" --argjson surface "$SURFACE" '{"content": $content, "surface": $surface}')
-RESPONSE=$(api_curl -s -X POST "$API_BASE/api/speak" \
+RESPONSE=$(api_curl -s -X POST "$API_BASE$(api_url /speak)" \
     -H "Content-Type: application/json" \
     -d "$BODY")
 

@@ -380,7 +380,7 @@ async function main() {
       res.status(400).json({ error: "content is required" });
       return;
     }
-    io.emit("speak:message", { content, surface, timestamp: Date.now() });
+    io.to(`inhabitant:${defaultInhabitantId}`).emit("speak:message", { content, surface, inhabitantId: defaultInhabitantId, timestamp: Date.now() });
     res.json({ ok: true });
   });
 
@@ -393,14 +393,14 @@ async function main() {
       res.status(400).json({ error: "content is required" });
       return;
     }
-    io.emit("speak:message", { content, surface, timestamp: Date.now() });
+    io.to(`inhabitant:${req.params.id}`).emit("speak:message", { content, surface, inhabitantId: req.params.id, timestamp: Date.now() });
     res.json({ ok: true });
   });
 
   // ===== Ask API =====
   const pendingAsks = new Map<string, { resolve: (choice: string) => void; timer: NodeJS.Timeout }>();
 
-  function handleAsk(req: express.Request, res: express.Response) {
+  function handleAsk(req: express.Request, res: express.Response, inhabitantId: string) {
     const { content, choices } = req.body;
     if (!content || !choices || !Array.isArray(choices) || choices.length < 2) {
       res.status(400).json({ error: "content and choices (array, min 2) are required" });
@@ -438,17 +438,17 @@ async function main() {
       }
     });
 
-    io.emit("ask:question", { id, content, choices, timestamp: Date.now() });
+    io.to(`inhabitant:${inhabitantId}`).emit("ask:question", { id, content, choices, inhabitantId, timestamp: Date.now() });
   }
 
   app.post("/api/ask", (req, res) => {
-    handleAsk(req, res);
+    handleAsk(req, res, defaultInhabitantId);
   });
 
   app.post("/api/inhabitants/:id/ask", (req, res) => {
     const ctx = getContext(req.params.id);
     if (!ctx) { res.status(404).json({ error: "Inhabitant not found" }); return; }
-    handleAsk(req, res);
+    handleAsk(req, res, req.params.id);
   });
 
   io.on("connection", (socket) => {

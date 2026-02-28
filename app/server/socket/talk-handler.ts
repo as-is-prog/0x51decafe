@@ -62,6 +62,9 @@ export const registerTalkHandlers = (
     const ctx = contexts.get(inhabitantId);
     if (!ctx) return;
 
+    // インハビタント固有の Room に参加（speak/ask のスコープ用）
+    socket.join(`inhabitant:${inhabitantId}`);
+
     console.log("[talk] connection", socket.id, `inhabitant=${inhabitantId}`);
 
     // プレゼンス: online

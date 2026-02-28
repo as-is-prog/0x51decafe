@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # API URL を構築
-URL="$API_BASE/api/chat/messages?limit=${LIMIT}"
+URL="$API_BASE$(api_url /chat/messages)?limit=${LIMIT}"
 [ -n "$SINCE" ] && URL="${URL}&since=$(echo -n "$SINCE" | jq -sRr @uri)"
 [ -n "$SEARCH" ] && URL="${URL}&search=$(echo -n "$SEARCH" | jq -sRr @uri)"
 

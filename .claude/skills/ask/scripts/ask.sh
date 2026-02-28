@@ -18,7 +18,7 @@ CHOICES_JSON=$(printf '%s\n' "$@" | jq -R . | jq -s .)
 PAYLOAD=$(jq -n --arg content "$CONTENT" --argjson choices "$CHOICES_JSON" \
     '{content: $content, choices: $choices}')
 
-RESPONSE=$(api_curl -s -X POST "$API_BASE/api/ask" \
+RESPONSE=$(api_curl -s -X POST "$API_BASE$(api_url /ask)" \
     -H "Content-Type: application/json" \
     -d "$PAYLOAD" \
     --max-time 300)

@@ -1,7 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PushNotificationSetup } from "@/components/PushNotificationSetup";
+import type { InhabitantsResponse } from "@/lib/api";
 
 export default function Home() {
+  const [inhabitants, setInhabitants] = useState<InhabitantsResponse | null>(null);
+  const [selectedId, setSelectedId] = useState<string>("");
+
+  useEffect(() => {
+    fetch("/api/inhabitants")
+      .then((res) => res.json())
+      .then((data: InhabitantsResponse) => {
+        setInhabitants(data);
+        setSelectedId(data.default);
+      })
+      .catch((err) => {
+        console.error("Failed to load inhabitants:", err);
+      });
+  }, []);
+
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-12 px-6 py-12 animate-fade-in">
       {/* Subtle background gradient */}
@@ -32,10 +51,40 @@ export default function Home() {
         </span>
       </div>
 
+      {/* Inhabitant Selector */}
+      {inhabitants && inhabitants.inhabitants.length > 0 && (
+        <div className="w-full max-w-sm">
+          <label
+            htmlFor="inhabitant-select"
+            className="block text-sm font-medium mb-2"
+            style={{ color: "var(--foreground-secondary)" }}
+          >
+            インハビタント
+          </label>
+          <select
+            id="inhabitant-select"
+            value={selectedId}
+            onChange={(e) => setSelectedId(e.target.value)}
+            className="w-full rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+            style={{
+              borderColor: "var(--border-color)",
+              background: "var(--background-elevated)",
+              color: "var(--foreground)",
+            }}
+          >
+            {inhabitants.inhabitants.map((inh) => (
+              <option key={inh.id} value={inh.id}>
+                {inh.displayName || inh.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* Navigation Cards */}
       <div className="grid w-full gap-6 sm:grid-cols-3">
         <Link
-          href="/talk"
+          href={selectedId ? `/talk/${selectedId}` : "/talk"}
           className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 p-8 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             borderColor: 'var(--border-color)',
@@ -59,7 +108,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/chat"
+          href={selectedId ? `/chat/${selectedId}` : "/chat"}
           className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 p-8 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             borderColor: 'var(--border-color)',
@@ -83,7 +132,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/memory"
+          href={selectedId ? `/memory/${selectedId}` : "/memory"}
           className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-2xl border-2 p-8 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             borderColor: 'var(--border-color)',
@@ -108,7 +157,7 @@ export default function Home() {
       </div>
 
       {/* Push Notification */}
-      <PushNotificationSetup />
+      <PushNotificationSetup inhabitantId={selectedId || undefined} />
     </main>
   );
 }

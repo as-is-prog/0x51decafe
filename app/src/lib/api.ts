@@ -92,3 +92,26 @@ export async function deleteProfileImage(id: string): Promise<void> {
 export function getProfileImageUrl(id: string): string {
   return `${API_BASE}/api/rooms/${id}/profile`;
 }
+
+// インハビタント対応 API パス生成
+export function inhabitantApiPath(inhabitantId: string, path: string): string {
+  return `/api/inhabitants/${inhabitantId}${path}`;
+}
+
+// インハビタント対応 fetcher
+export function inhabitantFetcher<T>(inhabitantId: string) {
+  return (path: string) => fetcher<T>(inhabitantApiPath(inhabitantId, path));
+}
+
+export interface InhabitantInfo {
+  id: string;
+  name: string;
+  displayName: string;
+  ownerName: string;
+  description: string;
+}
+
+export interface InhabitantsResponse {
+  inhabitants: InhabitantInfo[];
+  default: string;
+}

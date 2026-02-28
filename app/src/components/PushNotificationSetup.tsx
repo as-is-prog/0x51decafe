@@ -4,9 +4,21 @@ import { useState, useEffect, useCallback } from "react";
 
 type NotificationState = "loading" | "unsupported" | "denied" | "prompt" | "subscribed" | "unsubscribed";
 
-export function PushNotificationSetup() {
+interface PushNotificationSetupProps {
+  inhabitantId?: string;
+}
+
+export function PushNotificationSetup({ inhabitantId }: PushNotificationSetupProps) {
   const [state, setState] = useState<NotificationState>("loading");
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // インハビタント対応パス生成
+  const pushPath = useCallback((path: string) => {
+    if (inhabitantId) {
+      return `/api/inhabitants/${inhabitantId}/push${path}`;
+    }
+    return `/api/push${path}`;
+  }, [inhabitantId]);
 
   // 状態チェック
   const checkState = useCallback(async () => {
@@ -42,7 +54,7 @@ export function PushNotificationSetup() {
     setIsProcessing(true);
     try {
       // VAPID 公開鍵を取得
-      const keyRes = await fetch("/api/push/vapid-public-key");
+      const keyRes = await fetch(pushPath("/vapid-public-key"));
       const { publicKey } = await keyRes.json();
 
       // Service Worker を取得
@@ -55,7 +67,7 @@ export function PushNotificationSetup() {
       });
 
       // サーバーに登録
-      await fetch("/api/push/subscribe", {
+      await fetch(pushPath("/subscribe"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -85,7 +97,7 @@ export function PushNotificationSetup() {
 
       if (sub) {
         // サーバーから削除
-        await fetch("/api/push/subscribe", {
+        await fetch(pushPath("/subscribe"), {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ endpoint: sub.endpoint }),

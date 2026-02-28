@@ -13,7 +13,7 @@ fi
 MESSAGE="$1"
 
 # アプリサーバーにメッセージを送信（履歴保存 + Push通知）
-RESPONSE=$(api_curl -s -X POST "$API_BASE/api/chat/messages" \
+RESPONSE=$(api_curl -s -X POST "$API_BASE$(api_url /chat/messages)" \
     -H "Content-Type: application/json" \
     -d "{\"sender\": \"inhabitant\", \"content\": \"$MESSAGE\"}")
 
