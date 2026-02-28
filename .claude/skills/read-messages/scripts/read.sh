@@ -2,6 +2,8 @@
 # チャット履歴を取得するスクリプト
 # 使い方: read.sh [--limit N] [--since TIME] [--search TEXT]
 
+source "$(dirname "$0")/../../_lib/api.sh"
+
 LIMIT=10
 SINCE=""
 SEARCH=""
@@ -27,13 +29,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 # API URL を構築
-URL="http://localhost:3000/api/chat/messages?limit=${LIMIT}"
+URL="$API_BASE/api/chat/messages?limit=${LIMIT}"
 [ -n "$SINCE" ] && URL="${URL}&since=$(echo -n "$SINCE" | jq -sRr @uri)"
 [ -n "$SEARCH" ] && URL="${URL}&search=$(echo -n "$SEARCH" | jq -sRr @uri)"
 
 # API 呼び出し & フォーマット
 # jq の strftime は UTC なので、JST (+9h = 32400s) を加算
-curl -s "$URL" | jq -r '
+api_curl -s "$URL" | jq -r '
   .messages[] |
   (((.createdAt / 1000) + 32400) | strftime("[%m/%d %H:%M]")) + " " +
   (if .sender == "user" then "(user)" else "(inhabitant)" end) + " " +

@@ -53,7 +53,7 @@ export default function Home() {
             </svg>
           </div>
           <div className="relative text-center">
-            <h2 className="text-xl font-semibold" style={{ color: 'var(--foreground)' }}>Talk</h2>
+            <h2 className="text-xl font-semibold" style={{ color: 'var(--foreground)' }}>トーク</h2>
             <p className="mt-1 text-sm" style={{ color: 'var(--foreground-secondary)' }}>リアルタイム会話</p>
           </div>
         </Link>

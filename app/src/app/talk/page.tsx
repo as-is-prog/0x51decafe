@@ -230,7 +230,7 @@ export default function TalkPage() {
                   backgroundClip: "text",
                 }}
               >
-                対話
+                Talk
               </h1>
               {/* 接続状態インジケータ */}
               <span

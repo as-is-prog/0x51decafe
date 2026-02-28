@@ -365,8 +365,8 @@ async function main() {
       return;
     }
     // Authorization header fallback (for non-browser clients)
-    const authHeader = socket.handshake.auth?.token as string | undefined;
-    if (authHeader === token) {
+    const authHeader = socket.handshake.headers.authorization;
+    if (authHeader?.startsWith("Bearer ") && authHeader.slice(7) === token) {
       next();
       return;
     }
