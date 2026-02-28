@@ -2,6 +2,8 @@
  * 0x51decafe - カスタムサーバー
  * Express + Socket.io + Next.js を単一プロセスで統合
  */
+import { resolve, dirname } from "node:path";
+import { mkdirSync } from "node:fs";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createServer } from "node:http";
@@ -10,7 +12,7 @@ import next from "next";
 import { config, getFrameworkConfig } from "./server/config.js";
 import { registerTalkHandlers } from "./server/socket/talk-handler.js";
 import { loadFrameworkConfig, discoverInhabitants } from "../shared/config-loader.js";
-import { createInhabitantContext, type InhabitantContext } from "./server/inhabitant-context.js";
+import { createInhabitantContext, createGlobalPushServices, type InhabitantContext } from "./server/inhabitant-context.js";
 import { initAuthToken, setTokenCookie, requireAuth, verifySocketToken } from "./server/auth.js";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -29,10 +31,15 @@ async function main() {
     process.exit(1);
   }
 
+  // ── Global push notification services (shared across all inhabitants) ──
+  const globalDataDir = resolve(dirname(frameworkConfig.inhabitantsDir), ".data");
+  mkdirSync(globalDataDir, { recursive: true });
+  const globalPush = createGlobalPushServices(globalDataDir);
+
   // ── Build per-inhabitant contexts ──
   const inhabitantContexts = new Map<string, InhabitantContext>();
   for (const char of inhabitants) {
-    inhabitantContexts.set(char.config.id, createInhabitantContext(char));
+    inhabitantContexts.set(char.config.id, createInhabitantContext(char, globalPush));
   }
 
   const defaultInhabitantId =

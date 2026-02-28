@@ -20,10 +20,23 @@ export interface InhabitantContext {
   ipcClient: IpcClient;
 }
 
-export function createInhabitantContext(inhabitant: ResolvedInhabitant): InhabitantContext {
+export interface GlobalPushServices {
+  subscriptionStore: SubscriptionStore;
+  vapidManager: VapidManager;
+}
+
+export function createGlobalPushServices(dataDir: string): GlobalPushServices {
+  const subscriptionStore = createSubscriptionStore(dataDir);
+  const vapidManager = createVapidManager(dataDir, process.env.VAPID_EMAIL);
+  return { subscriptionStore, vapidManager };
+}
+
+export function createInhabitantContext(
+  inhabitant: ResolvedInhabitant,
+  globalPush: GlobalPushServices,
+): InhabitantContext {
   const messageStore = createMessageStore(inhabitant.paths.appData);
-  const subscriptionStore = createSubscriptionStore(inhabitant.paths.appData);
-  const vapidManager = createVapidManager(inhabitant.paths.appData, process.env.VAPID_EMAIL);
+  const { subscriptionStore, vapidManager } = globalPush;
   const notifier = createNotifier({
     inhabitantName: inhabitant.config.notification.title,
     subscriptionStore,

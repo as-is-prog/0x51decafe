@@ -157,7 +157,7 @@ export default function Home() {
       </div>
 
       {/* Push Notification */}
-      <PushNotificationSetup inhabitantId={selectedId || undefined} />
+      <PushNotificationSetup />
     </main>
   );
 }
