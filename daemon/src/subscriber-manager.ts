@@ -22,9 +22,17 @@ import type {
 export class SubscriberManager {
   private subscribers: Set<Socket> = new Set();
   private logFile: string;
+  private _onEmpty: (() => void) | null = null;
 
   constructor(logFile?: string) {
     this.logFile = logFile ?? '/dev/null';
+  }
+
+  /**
+   * 全 subscriber がいなくなった時のコールバックを設定する。
+   */
+  onEmpty(callback: () => void): void {
+    this._onEmpty = callback;
   }
 
   private debugLog(msg: string): void {
@@ -63,6 +71,10 @@ export class SubscriberManager {
   remove(socket: Socket): void {
     if (this.subscribers.delete(socket)) {
       this.debugLog(`subscriber removed: count=${this.subscribers.size}`);
+      if (this.subscribers.size === 0 && this._onEmpty) {
+        this.debugLog('all subscribers gone, firing onEmpty');
+        this._onEmpty();
+      }
     }
   }
 

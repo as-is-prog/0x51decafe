@@ -266,6 +266,13 @@ export async function runDaemon(inhabitantDir: string): Promise<void> {
     { ownerName, logFile: paths.logFile },
   );
 
+  // 全 subscriber がいなくなったら自動で offline に遷移
+  subscriberManager.onEmpty(() => {
+    if (presenceManager.getPresence().state === 'online') {
+      presenceManager.setPresence('offline');
+    }
+  });
+
   // パーミッションスキップフラグ
   let skipPermissions = false;
 

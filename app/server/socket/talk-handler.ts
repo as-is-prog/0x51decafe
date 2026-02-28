@@ -125,7 +125,7 @@ export const registerTalkHandlers = (
 
       const { abort } = ctx.ipcClient.sendMessage(
         payload.text,
-        (_text) => {},
+        (_text) => { },
         (_sessionId, _usage) => { currentAbort = null; },
         (_error) => { currentAbort = null; }
       );
@@ -141,9 +141,9 @@ export const registerTalkHandlers = (
 
       ctx.ipcClient.sendMessage(
         text,
-        (_text) => {},
-        (_sessionId, _usage) => {},
-        (_error) => {}
+        (_text) => { },
+        (_sessionId, _usage) => { },
+        (_error) => { }
       );
     });
 
@@ -156,11 +156,8 @@ export const registerTalkHandlers = (
         currentAbort = null;
       }
 
+      // subscribe ソケットを切断 → daemon 側で subscriber=0 を検知して自動 offline 遷移
       subscription.disconnect();
-
-      ctx.ipcClient.sendRequest("presence", { state: "offline" }).catch((err) => {
-        console.error("[talk] presence offline failed:", err);
-      });
     });
   });
 };
