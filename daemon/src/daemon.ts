@@ -360,6 +360,11 @@ export async function runDaemon(inhabitantDir: string): Promise<void> {
         return { ok: false, error: 'state must be "online" or "offline"' };
       }
 
+      // subscriber が残っている間は offline にしない
+      if (state === 'offline' && subscriberManager.count() > 0) {
+        return { ok: true, result: { presence: presenceManager.getPresence(), skipped: true } };
+      }
+
       presenceManager.setPresence(state);
 
       return { ok: true, result: { presence: presenceManager.getPresence() } };
