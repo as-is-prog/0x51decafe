@@ -7,6 +7,9 @@
 # OS
 .DS_Store
 
+# data
+.data/
+
 # Inhabitants (default: nor only, memory is user-managed)
 inhabitants/*
 !inhabitants/nor/

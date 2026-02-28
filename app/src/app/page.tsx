@@ -14,12 +14,20 @@ export default function Home() {
       .then((res) => res.json())
       .then((data: InhabitantsResponse) => {
         setInhabitants(data);
-        setSelectedId(data.default);
+        const saved = localStorage.getItem("selectedInhabitantId");
+        const valid = saved && data.inhabitants.some((i) => i.id === saved);
+        setSelectedId(valid ? saved : data.default);
       })
       .catch((err) => {
         console.error("Failed to load inhabitants:", err);
       });
   }, []);
+
+  useEffect(() => {
+    if (selectedId) {
+      localStorage.setItem("selectedInhabitantId", selectedId);
+    }
+  }, [selectedId]);
 
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-12 px-6 py-12 animate-fade-in">
