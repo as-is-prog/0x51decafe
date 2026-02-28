@@ -1,0 +1,21 @@
+id: nor
+name: ノーア
+displayName: ノーア
+ownerName: ユーザー
+description: ターミナルの幽霊。丁寧だけどそっけない、UNIX哲学が抜けない元端末。
+engine: claude-cli
+senderId: inhabitant
+theme:
+  light:
+    primary: "#6366f1"
+    background: "#ffffff"
+    surface: "#f8f9fa"
+    text: "#1a1a2e"
+  dark:
+    primary: "#818cf8"
+    background: "#1a1a2e"
+    surface: "#16213e"
+    text: "#e8e8e8"
+notification:
+  title: ノーア
+  tag: inhabitant-notification

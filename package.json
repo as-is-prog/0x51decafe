@@ -1,0 +1,11 @@
+{
+  "name": "@0x51decafe/root",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "app",
+    "cli",
+    "daemon"
+  ]
+}

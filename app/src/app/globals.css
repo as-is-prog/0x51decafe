@@ -1,0 +1,709 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+@import "tailwindcss";
+
+/* ========================================
+   カラーシステム - デフォルトテーマ
+   ニュートラルなインディゴ系ベーステーマ
+   ======================================== */
+
+:root {
+  /* 背景色 - ライトモード */
+  --background: #ffffff;
+  --background-secondary: #f8f9fa;
+  --background-elevated: #ffffff;
+
+  /* テキスト色 */
+  --foreground: #1e293b;
+  --foreground-secondary: #475569;
+  --foreground-muted: #94a3b8;
+
+  /* アクセント色 - インディゴ */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #6366f1;
+  --color-primary-light: #818cf8;
+  --color-primary-lighter: #a5b4fc;
+
+  /* アクセント2 - スレートグレー */
+  --color-accent: #64748b;
+  --color-accent-hover: #475569;
+  --color-accent-light: #94a3b8;
+
+  /* セマンティックカラー */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* ボーダー・シャドウ */
+  --border-color: rgba(79, 70, 229, 0.12);
+  --border-color-light: rgba(79, 70, 229, 0.06);
+  --shadow-sm: 0 1px 3px rgba(79, 70, 229, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 8px rgba(79, 70, 229, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 24px rgba(79, 70, 229, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08);
+
+  /* 入力フィールド */
+  --background-elevated-glass: rgba(255, 255, 255, 0.75);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-focus-bg: linear-gradient(135deg, rgba(13, 115, 119, 0.04) 0%, rgba(245, 158, 11, 0.03) 100%);
+  --input-placeholder: #94a3b8;
+
+  /* グラデーション */
+  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --gradient-accent: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(79, 70, 229, 0.03) 0%, transparent 100%);
+
+  /* ノイズテクスチャ（SVGベース） */
+  --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 背景色 - ダークモード */
+    --background: #0f172a;
+    --background-secondary: #1e293b;
+    --background-elevated: #1e293b;
+
+    /* テキスト色 */
+    --foreground: #e2e8f0;
+    --foreground-secondary: #cbd5e1;
+    --foreground-muted: #64748b;
+
+    /* アクセント色 - インディゴ（ダークモード用） */
+    --color-primary: #818cf8;
+    --color-primary-hover: #a5b4fc;
+    --color-primary-light: #a5b4fc;
+    --color-primary-lighter: #c7d2fe;
+
+    /* アクセント2 - スレート（ダークモード用） */
+    --color-accent: #94a3b8;
+    --color-accent-hover: #cbd5e1;
+    --color-accent-light: #64748b;
+
+    /* セマンティックカラー */
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-error: #f87171;
+
+    /* ボーダー・シャドウ */
+    --border-color: rgba(129, 140, 248, 0.2);
+    --border-color-light: rgba(129, 140, 248, 0.1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(129, 140, 248, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(129, 140, 248, 0.08);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(129, 140, 248, 0.1);
+
+    /* 入力フィールド（ダークモード用） */
+    --background-elevated-glass: rgba(21, 27, 38, 0.8);
+    --input-bg: rgba(21, 27, 38, 0.9);
+    --input-focus-bg: linear-gradient(135deg, rgba(50, 186, 192, 0.08) 0%, rgba(251, 191, 36, 0.06) 100%);
+    --input-placeholder: #64748b;
+
+    /* グラデーション（ダークモード用） */
+    --gradient-primary: linear-gradient(135deg, #818cf8 0%, #a5b4fc 100%);
+    --gradient-accent: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+    --gradient-subtle: linear-gradient(180deg, rgba(129, 140, 248, 0.05) 0%, transparent 100%);
+
+    /* ノイズテクスチャ（ダークモード用） */
+    --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Poppins', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Crimson Pro', 'Noto Sans JP', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Monaco, 'Cascadia Code', monospace;
+}
+
+/* ========================================
+   グローバルベーススタイル
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Poppins', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  position: relative;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* サブトルノイズテクスチャ背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image: var(--noise-texture);
+  opacity: 1;
+}
+
+/* プレースホルダーテキストの可読性確保 */
+textarea::placeholder,
+input::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* グローバルトランジション */
+@layer base {
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* スクロールバースタイル */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ========================================
+   マークダウンスタイル - .prose-chat
+   大幅に強化された読みやすさとアニメーション
+   ======================================== */
+
+.prose-chat {
+  line-height: 1.75;
+  font-size: 15px;
+  color: var(--foreground);
+  max-width: none;
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 段落 */
+.prose-chat p {
+  margin: 0.75em 0;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.prose-chat p:first-child {
+  margin-top: 0;
+}
+
+.prose-chat p:last-child {
+  margin-bottom: 0;
+}
+
+/* 見出し */
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3,
+.prose-chat h4 {
+  font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+.prose-chat h1 {
+  font-size: 1.8em;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.prose-chat h2 {
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.3em;
+}
+
+.prose-chat h3 {
+  font-size: 1.25em;
+}
+
+.prose-chat h4 {
+  font-size: 1.1em;
+}
+
+/* インラインコード */
+.prose-chat code {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(79, 70, 229, 0.12) 100%);
+  color: var(--color-primary);
+  padding: 0.2em 0.45em;
+  border-radius: 0.35em;
+  font-size: 0.88em;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500;
+  border: 1px solid var(--border-color-light);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  letter-spacing: -0.02em;
+}
+
+.prose-chat code:hover {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.12) 0%, rgba(79, 70, 229, 0.16) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose-chat code {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(129, 140, 248, 0.18) 100%);
+    color: var(--color-primary);
+    border-color: var(--border-color);
+  }
+
+  .prose-chat code:hover {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.18) 0%, rgba(129, 140, 248, 0.24) 100%);
+    box-shadow: 0 2px 4px rgba(129, 140, 248, 0.2);
+  }
+}
+
+/* コードブロック */
+.prose-chat pre {
+  background: var(--background-elevated);
+  border: 1px solid var(--border-color);
+  padding: 1em 1.25em;
+  border-radius: 0.75em;
+  overflow-x: auto;
+  margin: 1em 0;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prose-chat pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 0.75em 0.75em 0 0;
+}
+
+.prose-chat pre:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose-chat pre {
+    background: var(--background-elevated);
+    border-color: var(--border-color);
+  }
+}
+
+.prose-chat pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.88em;
+  border: none;
+  box-shadow: none;
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+.prose-chat pre code:hover {
+  transform: none;
+}
+
+/* リスト */
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.75em 0;
+  padding-left: 1.75em;
+}
+
+.prose-chat ul {
+  list-style-type: none;
+}
+
+.prose-chat ul li {
+  position: relative;
+  padding-left: 0.5em;
+}
+
+.prose-chat ul li::before {
+  content: '';
+  position: absolute;
+  left: -1.25em;
+  top: 0.7em;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--color-primary-light);
+}
+
+.prose-chat ol {
+  counter-reset: list-counter;
+}
+
+.prose-chat ol li {
+  counter-increment: list-counter;
+  position: relative;
+  padding-left: 0.5em;
+}
+
+.prose-chat ol li::before {
+  content: counter(list-counter);
+  position: absolute;
+  left: -1.75em;
+  top: 0;
+  width: 1.5em;
+  height: 1.5em;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.prose-chat li {
+  margin: 0.4em 0;
+  line-height: 1.7;
+}
+
+/* 引用 */
+.prose-chat blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding: 0.75em 1.25em;
+  margin: 1em 0;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.05) 0%, transparent 100%);
+  border-radius: 0 0.5em 0.5em 0;
+  font-style: italic;
+  color: var(--foreground-secondary);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.prose-chat blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -0.2em;
+  left: 0.5em;
+  font-size: 3em;
+  color: var(--color-primary);
+  opacity: 0.2;
+  font-family: 'Crimson Pro', serif;
+  line-height: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose-chat blockquote {
+    background: linear-gradient(90deg, rgba(129, 140, 248, 0.08) 0%, transparent 100%);
+  }
+}
+
+/* 強調・イタリック */
+.prose-chat strong {
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+}
+
+.prose-chat em {
+  font-style: italic;
+  color: var(--foreground-secondary);
+  font-family: 'Crimson Pro', 'Noto Sans JP', serif;
+}
+
+/* リンク */
+.prose-chat a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 2px solid transparent;
+}
+
+.prose-chat a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prose-chat a:hover {
+  color: var(--color-primary-hover);
+}
+
+.prose-chat a:hover::after {
+  width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose-chat a {
+    color: var(--color-primary);
+  }
+}
+
+/* 水平線 */
+.prose-chat hr {
+  border: none;
+  height: 2px;
+  background: var(--gradient-primary);
+  margin: 2em 0;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+/* テーブル */
+.prose-chat table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5em 0;
+  border-radius: 0.75em;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+.prose-chat thead {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.prose-chat th {
+  padding: 0.75em 1em;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.prose-chat td {
+  padding: 0.75em 1em;
+  border-top: 1px solid var(--border-color-light);
+}
+
+.prose-chat tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.prose-chat tbody tr:hover {
+  background: var(--background-secondary);
+}
+
+/* ========================================
+   ユーザーメッセージ用スタイル
+   白文字対応の特別スタイル
+   ======================================== */
+
+.prose-chat-user code {
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.prose-chat-user code:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.prose-chat-user pre {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.prose-chat-user pre::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.6) 100%);
+}
+
+.prose-chat-user a {
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.prose-chat-user a::after {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.8) 100%);
+}
+
+.prose-chat-user a:hover {
+  color: white;
+}
+
+.prose-chat-user blockquote {
+  border-left-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.prose-chat-user blockquote::before {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.prose-chat-user ul li::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.8) 100%);
+  box-shadow: 0 0 0 2px transparent, 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.prose-chat-user ol li::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%);
+  color: var(--color-primary);
+}
+
+/* ========================================
+   ユーティリティアニメーション
+   スクロール・ホバー時の微妙な反応
+   ======================================== */
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   グラスモーフィズム効果
+   モーダル・カード用
+   ======================================== */
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-effect {
+    background: rgba(21, 27, 38, 0.7);
+    border-color: rgba(129, 140, 248, 0.2);
+  }
+}

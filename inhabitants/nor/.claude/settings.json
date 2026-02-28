@@ -1,0 +1,18 @@
+{
+    "permissions": {
+        "allow": [
+            "Read",
+            "Read(memory/*)",
+            "Write(memory/*)",
+            "Edit(memory/*)",
+            "Bash(./.claude/skills/speak/scripts/speak.sh:*)",
+            "Bash(./.claude/skills/notify/scripts/send.sh:*)",
+            "Bash(./.claude/skills/ask/scripts/ask.sh:*)",
+            "Bash(./.claude/skills/read-messages/scripts/read.sh:*)",
+            "Bash(./.claude/skills/time-remind/scripts/remind.sh:*)",
+            "Bash(./.claude/skills/wake/scripts/wake.sh:*)"
+        ]
+    },
+    "outputStyle": "nor",
+    "model": "sonnet"
+}

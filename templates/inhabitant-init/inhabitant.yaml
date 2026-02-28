@@ -1,0 +1,29 @@
+# Inhabitant Configuration Template
+# Copy this file to your inhabitant directory and customize it.
+
+id: my-inhabitant
+name: "Inhabitant Name"
+displayName: "Display Name"
+ownerName: "User"
+description: "A brief description of your inhabitant"
+
+# Sender identifier (used in message store)
+senderId: "inhabitant"
+
+# Theme colors
+theme:
+  light:
+    primary: "#6366f1"
+    background: "#ffffff"
+    surface: "#f8f9fa"
+    text: "#1a1a2e"
+  dark:
+    primary: "#818cf8"
+    background: "#1a1a2e"
+    surface: "#16213e"
+    text: "#e8e8e8"
+
+# Notification settings
+notification:
+  title: "Inhabitant Name"
+  tag: "inhabitant-notification"

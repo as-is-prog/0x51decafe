@@ -1,0 +1,16 @@
+# 環境変数・シークレット
+.claude/skills/**/scripts/.env
+*.env
+!.env.example
+.auth-token
+
+# OS
+.DS_Store
+
+# Inhabitants (default: nor only, memory is user-managed)
+inhabitants/*
+!inhabitants/nor/
+inhabitants/nor/memory/
+
+node_modules/
+dist/

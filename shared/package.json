@@ -1,0 +1,9 @@
+{
+  "name": "@0x51decafe/shared",
+  "version": "1.0.0",
+  "description": "0x51decafe shared modules",
+  "type": "module",
+  "dependencies": {
+    "yaml": "^2.8.2"
+  }
+}
