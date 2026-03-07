@@ -7,7 +7,8 @@
 #   wake.sh check [--hours 12]
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../../../../.." && pwd)"
+INHABITANT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+PROJECT_ROOT="$(cd "$INHABITANT_DIR/../.." && pwd)"
 DAEMON_CLI="$PROJECT_ROOT/daemon/src/cli.ts"
 
-npx tsx "$DAEMON_CLI" wake "$@"
+npx tsx "$DAEMON_CLI" wake "$@" --inhabitant-dir "$INHABITANT_DIR"
